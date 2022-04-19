@@ -30,10 +30,11 @@ const PostPage: NextPage<IProps> = ({ title, post }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>{title}</h1>
-        <h1>{post.title}</h1>
-        <h3>{post.imageSrc}</h3>
-
+        <img
+          src="http://113.30.190.164:5000/a1a2ad8c-b3af-4992-b529-bc8296a3a4d7.jpg"
+          alt="no https"
+          className="w-2/3"
+        />
         <Image
           loader={myLoader}
           src={post.imageSrc}
@@ -41,9 +42,8 @@ const PostPage: NextPage<IProps> = ({ title, post }) => {
           width={500}
           height={500}
         />
-
-        {/* <Image src={post.imageSrc} alt={post.title} width={500} height={500} /> */}
-
+        <h1>{post.title}</h1>
+        <h3>{post.imageSrc}</h3>
         <h5>{post.description}</h5>
         <p>{post.content}</p>
       </main>
