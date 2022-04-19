@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { api } from "../lib/api";
 
 interface IPost {
   id: number;
@@ -8,6 +9,7 @@ interface IPost {
   description: string;
   content: string;
   image: string;
+  imageSrc: string;
 }
 
 interface IProps {
@@ -16,7 +18,7 @@ interface IProps {
 }
 
 const myLoader = ({ src }: any) => {
-  return `http://113.30.190.164:5000/${src}`;
+  return src;
 };
 
 const PostPage: NextPage<IProps> = ({ title, post }) => {
@@ -28,14 +30,20 @@ const PostPage: NextPage<IProps> = ({ title, post }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <h1>{title}</h1>
         <h1>{post.title}</h1>
+        <h3>{post.imageSrc}</h3>
+
         <Image
           loader={myLoader}
-          src={post.image}
-          alt="Picture of the author"
+          src={post.imageSrc}
+          alt={post.title}
           width={500}
           height={500}
         />
+
+        {/* <Image src={post.imageSrc} alt={post.title} width={500} height={500} /> */}
+
         <h5>{post.description}</h5>
         <p>{post.content}</p>
       </main>
@@ -43,15 +51,10 @@ const PostPage: NextPage<IProps> = ({ title, post }) => {
   );
 };
 
-PostPage.getInitialProps = async ({ query }) => {
+PostPage.getInitialProps = async ({ req, query }) => {
   const title = query.title as string;
-  const res = await fetch(`http://113.30.190.164:5000/posts/name/${title}`);
-  const post = await res.json();
-  const data = {
-    title,
-    post,
-  };
-  return { ...data };
+  const data = await api.post(req, title);
+  return { ...data, title };
 };
 
 export default PostPage;
