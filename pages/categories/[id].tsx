@@ -46,8 +46,8 @@ const CategoryPage: NextPage<IProps> = ({ posts }) => {
   return (
     <div className="flex">
       {posts.map((post) => (
-        <Link href={`/${post.title}`}>
-          <div className="p-10 cursor-pointer" key={post.id}>
+        <Link href={`/${post.title}`} key={post.id}>
+          <div className="p-10 cursor-pointer">
             <div className="max-w-sm rounded overflow-hidden shadow-lg">
               <AiFillCamera />
               <div className="px-6 py-4">
