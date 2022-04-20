@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import { FaBeer, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import { api } from "../lib/api";
+import { CategoriesList } from "../app/components/CategoriesList";
 
 interface IPost {
   id: number;
@@ -16,82 +17,32 @@ interface IPost {
 interface IProps {
   posts: IPost[];
   title: string;
+  keywords: string;
+  categories: [];
 }
 
-const Home: NextPage<IProps> = ({ posts, title }) => {
+const Home: NextPage<IProps> = ({ posts, title, keywords, categories }) => {
   return (
     <div className={styles.container}>
       <Head>
         <title>{title}</title>
         <meta name="ACTIVAR" />
+        <meta name="keywords" content={keywords}></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <h1 className="text-3xl font-bold underline">
-          <FaBeer />
-          Hello world!!!!!!
-          <FaShoppingCart />
-        </h1>
-
-        <table className="table-auto bg-slate-400">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>title</th>
-              <th>description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post) => (
-              <tr key={post.id}>
-                <td>{post.id}</td>
-                <td className="text-2xl font-bold underline">
-                  <Link href={`/${post.title}`}>
-                    <a>{post.title}</a>
-                  </Link>
-                </td>
-                <td>{post.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
+        <CategoriesList categories={categories} />
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          {posts.map((post) => (
+            <Link href={`/${post.title}`} key={post.id}>
+              <a className={styles.card}>
+                <FaShoppingCart />
+                <h2>{post.title} &rarr;</h2>
+                <p>{post.description}</p>
+              </a>
+            </Link>
+          ))}
         </div>
       </main>
 
@@ -113,8 +64,10 @@ const Home: NextPage<IProps> = ({ posts, title }) => {
 
 Home.getInitialProps = async ({ req }) => {
   const data = await api.posts(req);
+  const categories = (await api.categories(req)).categories;
   return {
     ...data,
+    categories,
   };
 };
 

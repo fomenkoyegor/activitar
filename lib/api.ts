@@ -10,6 +10,14 @@ function posts(req: any) {
   return fetcher(req, "posts");
 }
 
+function postCategory(req: any, categoryId: number) {
+  return fetcher(req, `post-category?categoryId=${categoryId}`);
+}
+
+function categories(req: any) {
+  return fetcher(req, "categories");
+}
+
 async function post(req: any, title: string) {
   return fetcher(req, `post/?title=${title}`);
 }
@@ -17,4 +25,6 @@ async function post(req: any, title: string) {
 export const api = {
   posts,
   post,
+  categories,
+  postCategory,
 };

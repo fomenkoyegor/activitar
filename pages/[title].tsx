@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { api } from "../lib/api";
+import Link from "next/link";
 
 interface IPost {
   id: number;
@@ -9,6 +10,10 @@ interface IPost {
   description: string;
   content: string;
   image: string;
+  userId: number;
+  categoryId: number;
+  createdAt: Date;
+  updatedAt: Date;
   imageSrc: string;
 }
 
@@ -17,9 +22,7 @@ interface IProps {
   post: IPost;
 }
 
-const myLoader = ({ src }: any) => {
-  return src;
-};
+const myLoader = ({ src }: any) => src;
 
 const PostPage: NextPage<IProps> = ({ title, post }) => {
   return (
@@ -30,22 +33,22 @@ const PostPage: NextPage<IProps> = ({ title, post }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <img
-          src="http://113.30.190.164:5000/a1a2ad8c-b3af-4992-b529-bc8296a3a4d7.jpg"
-          alt="no https"
-          className="w-2/3"
-        />
         <Image
           loader={myLoader}
           src={post.imageSrc}
           alt={post.title}
-          width={500}
-          height={500}
+          width={50}
+          height={50}
+          unoptimized={true}
         />
         <h1>{post.title}</h1>
-        <h3>{post.imageSrc}</h3>
         <h5>{post.description}</h5>
         <p>{post.content}</p>
+        <Link href={`categories/${post.categoryId}`}>
+          <a className="bg-black text-gray-400">
+            <p>#CATEGORY</p>
+          </a>
+        </Link>
       </main>
     </>
   );
