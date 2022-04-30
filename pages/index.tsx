@@ -5,17 +5,16 @@ const HomePage: NextPage = (props) => {
   return (
     <Layout>
       <h1>hello</h1>
-      <pre>{JSON.stringify(props.feed, null, 2)}</pre>
+      <pre>{JSON.stringify(props.data, null, 2)}</pre>
     </Layout>
   );
 };
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/api/feed')
-  const feed = await res.json() 
+  const data = {some: "lorem"}
   return {
-    props: { feed },
+    props: { data },
   }
 }
 

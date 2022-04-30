@@ -11,11 +11,17 @@ const Header: FC = () => {
       <nav>
          <ul className='p-2'>
          	<li className='container flex justify-around'>
-				<Link href={`/`}>
+				  <Link href={`/`}>
       				<a className={`bg-black text-white p-1 rounded ${activeClass('/', true)}`}>
       					home
       				</a>
     			</Link>
+
+          <Link href={`/blog`}>
+              <a className={`bg-black text-white p-1 rounded ${activeClass('/blog')}`}>
+                blog
+              </a>
+          </Link>
 
     			<Link href={`/auth/signin`}>
       				<a className={`bg-black text-white p-1 rounded ${activeClass('/auth/signin')}`}>
