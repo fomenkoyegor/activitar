@@ -7,7 +7,7 @@ const fetcher = async (req: any, path: any) => {
 };
 
 function posts(req: any) {
-  return fetcher(req, "posts");
+  return fetcher(req, "blog/feed");
 }
 
 function postCategory(req: any, categoryId: number) {
@@ -18,9 +18,10 @@ function categories(req: any) {
   return fetcher(req, "categories");
 }
 
-async function post(req: any, title: string) {
-  return fetcher(req, `post/?title=${title}`);
+async function post(req: any, slug: string) {
+  return fetcher(req, `blog/${slug}`);
 }
+
 
 export const api = {
   posts,

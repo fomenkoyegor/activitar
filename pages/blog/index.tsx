@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Layout from "../../app/layouts";
 import Link from "next/link";
+import {api} from '../../lib/api'
 
 interface IProps {
   feed: []
@@ -25,9 +26,8 @@ const BlogPage: NextPage<IProps> = ({feed}) => {
 };
 
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/api/blog/feed')
-  const feed = await res.json()
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  const feed = await api.posts(req)
   return {
     props: { feed },
   }

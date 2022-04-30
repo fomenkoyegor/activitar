@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Layout from "../../app/layouts";
+import {api} from '../../lib/api'
 
 const PostPage: NextPage = (props) => {
   return (
@@ -11,9 +12,8 @@ const PostPage: NextPage = (props) => {
 };
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`http://localhost:3000/api/blog/${context.params.slug}`)
-  const post = await res.json()
+export const getServerSideProps: GetServerSideProps = async ({req, params}) => {
+  const post = await api.post(req, params.slug)
   return {
     props: { post },
   }
