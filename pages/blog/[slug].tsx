@@ -3,7 +3,7 @@ import Layout from "../../app/layouts";
 
 const PostPage: NextPage = (props) => {
   return (
-    <Layout title='post'>
+    <Layout title={props.post.slug}>
       <h1>hello</h1>
       <pre>{JSON.stringify(props, null, 2)}</pre>
     </Layout>
@@ -12,7 +12,7 @@ const PostPage: NextPage = (props) => {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`http://localhost:3000/api/blog/${context.params.id}`)
+  const res = await fetch(`http://localhost:3000/api/blog/${context.params.slug}`)
   const post = await res.json()
   return {
     props: { post },

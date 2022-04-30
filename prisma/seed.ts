@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client'
+import slugify from 'slugify'
 
 const prisma = new PrismaClient()
 
@@ -10,8 +11,8 @@ const userData: Prisma.UserCreateInput[] = [
       create: [
         {
           title: 'Join the Prisma Slack',
+          slug: slugify('Join the Prisma Slack', {lower: true}),
           content: 'https://slack.prisma.io',
-          published: true,
         },
       ],
     },
@@ -23,8 +24,8 @@ const userData: Prisma.UserCreateInput[] = [
       create: [
         {
           title: 'Follow Prisma on Twitter',
+          slug: slugify('Follow Prisma on Twitter', {lower: true}),
           content: 'https://www.twitter.com/prisma',
-          published: true,
         },
       ],
     },
@@ -36,11 +37,12 @@ const userData: Prisma.UserCreateInput[] = [
       create: [
         {
           title: 'Ask a question about Prisma on GitHub',
+          slug: slugify('Ask a question about Prisma on GitHub', {lower: true}),
           content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
         },
         {
           title: 'Prisma on YouTube',
+          slug: slugify('Prisma on YouTube', {lower: true}),
           content: 'https://pris.ly/youtube',
         },
       ],

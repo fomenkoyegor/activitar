@@ -13,8 +13,8 @@ const BlogPage: NextPage<IProps> = ({feed}) => {
       <ul>
         {feed.map(p => <li key={p.id}>
             <h3>{p.title}</h3>
-            <Link href={`/blog/${p.id}`}>
-                <a className='bg-black text-white p-1 rounded'>go to</a>
+            <Link href={`/blog/${p.slug}`}>
+                <a className='bg-black text-white p-1 rounded'>go to {p.slug}</a>
             </Link>
           </li>)}
       </ul>
